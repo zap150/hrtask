@@ -1,5 +1,7 @@
 # soup2ply
 
+The aim of the task is to transform the mesh consisting of flat triangles from the 'soup of triangles' to the PLY format.
+
 ## Soup of triangles
 
 List of vertices, three subsequent values represent a 3D vertex, nine subsequent values represent a planar triangle in 3D. Vertices are not unique, can appear multiple times in the file.
@@ -19,7 +21,7 @@ List of vertices, three subsequent values represent a 3D vertex, nine subsequent
 
 ## PLY format
 
-PLY separates the definition of unique vertices and an element field with indeces to the vertex field, see https://en.wikipedia.org/wiki/PLY_(file_format).
+PLY separates the definition of unique vertices and an element field with indices to the vertex field, see https://en.wikipedia.org/wiki/PLY_(file_format).
 
 ```
 ply
@@ -42,3 +44,7 @@ end_header
 `XXX` ... number of vertices
 
 `YYY` ... number of faces
+
+## Meshlab
+
+The output PLY file can be viewed e.g. in Meshlab, see https://www.meshlab.net/#download.
