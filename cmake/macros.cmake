@@ -1,0 +1,47 @@
+macro(check_insource)
+  if("${CMAKE_BINARY_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
+    message(FATAL_ERROR
+    "Remove CMakeCache.txt and CMakeFiles and use a dedicated build directory, "
+    "e.g., mkdir build && cd build && cmake .. && make")
+  endif()
+endmacro()
+
+macro(setup_compiler)
+  if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
+    message(STATUS "Using GNU ${CMAKE_CXX_COMPILER_VERSION} toolchain")
+    add_compile_options(-Wall -Wextra)
+  elseif (CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+    message(STATUS "Using AppleClang ${CMAKE_CXX_COMPILER_VERSION} toolchain")
+    add_compile_options(-Wall -Wextra)
+  elseif (CMAKE_CXX_COMPILER_ID MATCHES Clang
+    AND NOT CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+    message(STATUS "Using Clang ${CMAKE_CXX_COMPILER_VERSION} toolchain")
+    add_compile_options(-Wall -Wextra)
+  elseif (CMAKE_CXX_COMPILER_ID MATCHES Intel)
+    message(STATUS "Using Intel ${CMAKE_CXX_COMPILER_VERSION} toolchain")
+    add_compile_options(-w3)
+  else()
+    message(FATAL_ERROR "Unknown C++ compiler: ${CMAKE_CXX_COMPILER_ID}")
+  endif()
+
+  set(CMAKE_CXX_STANDARD 17)
+  #set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+  if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE RelWithDebInfo)
+  endif()
+endmacro()
+
+macro(enable_OpenMP)
+  if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
+    add_compile_options(-fopenmp)
+  elseif (CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+    #add_compile_options(-I/opt/local/include/libomp -Xclang -fopenmp)
+    add_compile_options(-Xclang -fopenmp)
+  elseif (CMAKE_CXX_COMPILER_ID MATCHES Clang
+    AND NOT CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+    add_compile_options(-fopenmp)
+  elseif (CMAKE_CXX_COMPILER_ID MATCHES Intel)
+    add_compile_options(-qopenmp)
+  endif()
+endmacro()
