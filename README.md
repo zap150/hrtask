@@ -21,7 +21,7 @@ List of vertices, three subsequent values represent a 3D vertex, nine subsequent
 
 ## PLY format
 
-PLY separates the definition of unique vertices and an element field with indices to the vertex field, see https://en.wikipedia.org/wiki/PLY_(file_format).
+PLY separates the definition of unique vertices and an element field with indices to the vertex field, see http://paulbourke.net/dataformats/ply/ or https://en.wikipedia.org/wiki/PLY_(file_format).
 
 ```
 ply
